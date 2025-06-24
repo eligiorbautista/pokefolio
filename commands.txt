@@ -1,0 +1,7 @@
+# Tailwind CSS with DaisyUI
+npx svelte-add@latest tailwindcss (+typography)
+npm install daisyui (add in tailwind.config.ts)
+
+
+# Supabase
+npm install @supabase/supabase-js @supabase/ssr @supabase/auth-ui-svelte @supabase/auth-ui-shared
