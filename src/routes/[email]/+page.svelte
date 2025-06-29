@@ -190,20 +190,20 @@
                             <div class="group relative">
                                 <div class="absolute -inset-0.5 bg-gradient-to-r from-pink-600 to-purple-600 rounded-2xl blur opacity-50 group-hover:opacity-75 transition duration-300"></div>
                                 <div class="relative bg-slate-800/90 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-white/30 transition-all duration-300 transform hover:scale-105">
-                                    <div class="text-center">
+                                <div class="text-center">
                                         <div class="relative mb-4">
-                                            <img
-                                                src={pokemon.sprites.front_default}
+                                    <img
+                                        src={pokemon.sprites.front_default}
                                                 alt={pokemon.name}
                                                 class="w-32 h-32 mx-auto object-contain drop-shadow-2xl"
-                                                width="128"
-                                                height="128"
-                                            />
+                                        width="128"
+                                        height="128"
+                                    />
                                             <div class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-24 h-3 bg-black/20 rounded-full blur-sm"></div>
                                         </div>
                                         
                                         <h3 class="text-2xl font-bold text-white capitalize mb-3">
-                                            {pokemon.name}
+                                        {pokemon.name}
                                         </h3>
                                         
                                         <div class="flex flex-wrap justify-center gap-2 mb-4">
@@ -228,14 +228,14 @@
                                 </div>
                             </div>
                         {/each}
-                    </div>
+                        </div>
                 {/if}
             </div>
 
             <!-- Edit Button -->
             {#if email === session?.user?.email}
                 <div class="text-center">
-                    <button
+                <button
                         class="btn btn-primary btn-lg bg-gradient-to-r from-blue-600 to-purple-600 border-none hover:from-blue-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-200 shadow-xl"
                         onclick={() => (isModalOpen = true)}
                     >
@@ -253,19 +253,20 @@
                         
                         <!-- Description Section -->
                         <div class="mb-8">
-                            <label class="label">
+                            <label for="profile-description" class="label">
                                 <span class="label-text text-white text-lg font-semibold">📝 Profile Description</span>
                             </label>
-                            <textarea
-                                bind:value={profile.description}
+                        <textarea
+                            id="profile-description"
+                            bind:value={profile.description}
                                 class="textarea textarea-bordered w-full h-32 bg-slate-700 text-white border-slate-600 focus:border-blue-500"
                                 placeholder="Tell everyone about yourself and your favorite Pokemon..."
-                            ></textarea>
+                        ></textarea>
                         </div>
 
                         <!-- Pokemon Selection -->
                         <div class="mb-6">
-                            <label class="label">
+                            <label for="pokemon-search" class="label">
                                 <span class="label-text text-white text-lg font-semibold">🎯 Choose Your Pokemon (Max 3)</span>
                                 <span class="label-text-alt text-gray-400">{profile.pokemon_ids.length}/3 selected</span>
                             </label>
@@ -273,6 +274,7 @@
                             <!-- Search Input -->
                             <div class="relative mb-4">
                                 <input
+                                    id="pokemon-search"
                                     type="text"
                                     class="input input-bordered w-full bg-slate-700 text-white border-slate-600 focus:border-blue-500 pl-10"
                                     placeholder="🔍 Search for Pokemon..."
@@ -284,13 +286,13 @@
                             <!-- Pokemon Grid -->
                             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 max-h-80 overflow-y-auto bg-slate-700/50 rounded-lg p-4">
                                 {#each filteredPokemonList as pokemon, index}
-                                    <button
+                                <button
                                         class="pokemon-selector {profile.pokemon_ids.includes(index + 1) ? 'selected' : ''}"
-                                        onclick={() => togglePokemon(index + 1)}
-                                    >
+                                    onclick={() => togglePokemon(index + 1)}
+                                >
                                         <div class="text-center p-3 rounded-lg transition-all duration-200 hover:bg-slate-600 {profile.pokemon_ids.includes(index + 1) ? 'bg-blue-600 ring-2 ring-blue-400' : 'bg-slate-700'}">
                                             <h3 class="text-white text-sm font-medium capitalize truncate">
-                                                {pokemon.name}
+                                            {pokemon.name}
                                             </h3>
                                             {#if profile.pokemon_ids.includes(index + 1)}
                                                 <div class="text-xs text-blue-200 mt-1">✓ Selected</div>
@@ -315,7 +317,7 @@
                             >
                                 Cancel
                             </button>
-                            <button
+                        <button
                                 class="btn btn-primary bg-gradient-to-r from-green-600 to-blue-600 border-none hover:from-green-700 hover:to-blue-700"
                                 onclick={() => savePageEdits()}
                                 disabled={isSaving}
@@ -329,7 +331,12 @@
                             </button>
                         </div>
                     </div>
-                    <div class="modal-backdrop bg-black/50" onclick={() => (isModalOpen = false)}></div>
+                    <button 
+                        type="button"
+                        class="modal-backdrop bg-black/50" 
+                        aria-label="Close modal"
+                        onclick={() => (isModalOpen = false)}
+                    ></button>
                 </dialog>
             {/if}
         {/if}

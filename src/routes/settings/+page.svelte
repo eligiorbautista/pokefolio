@@ -162,7 +162,7 @@
 
         <div class="max-w-4xl mx-auto">
             <div class="grid gap-8 md:grid-cols-1 lg:grid-cols-2">
-                <!-- Account Information Card -->
+            <!-- Account Information Card -->
                 <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20 shadow-2xl">
                     <h2 class="flex items-center text-2xl font-bold text-white mb-6">
                         <svg
@@ -206,10 +206,10 @@
                                 {session?.user?.id || "Not available"}
                             </dd>
                         </div>
-                    </div>
                 </div>
+            </div>
 
-                <!-- Update Email Card -->
+            <!-- Update Email Card -->
                 <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20 shadow-2xl">
                     <h2 class="flex items-center text-2xl font-bold text-white mb-6">
                         <svg
@@ -264,9 +264,9 @@
                             {/if}
                         </button>
                     </form>
-                </div>
+            </div>
 
-                <!-- Update Password Card -->
+            <!-- Update Password Card -->
                 <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20 shadow-2xl lg:col-span-2">
                     <h2 class="flex items-center text-2xl font-bold text-white mb-6">
                         <svg
@@ -339,9 +339,9 @@
                             </button>
                         </div>
                     </form>
-                </div>
+            </div>
 
-                <!-- Security Actions Card -->
+            <!-- Security Actions Card -->
                 <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20 shadow-2xl lg:col-span-2">
                     <h2 class="flex items-center text-2xl font-bold text-white mb-6">
                         <svg
@@ -366,91 +366,91 @@
                         <div class="bg-yellow-500/10 border border-yellow-500/20 rounded-xl p-6">
                             <h3 class="font-semibold text-white mb-2 flex items-center">
                                 <span class="mr-2">📱</span>
-                                Sign Out All Devices
-                            </h3>
+                                    Sign Out All Devices
+                                </h3>
                             <p class="text-sm text-gray-300 mb-4">
                                 Sign out from all devices and browsers where you're currently logged in.
-                            </p>
-                            <button
-                                on:click={signOutAllDevices}
+                                </p>
+                                <button
+                                    on:click={signOutAllDevices}
                                 class="btn bg-gradient-to-r from-yellow-600 to-orange-600 border-none hover:from-yellow-700 hover:to-orange-700 text-white font-semibold transform hover:scale-105 transition-all duration-200"
-                            >
+                                >
                                 🚪 Sign Out Everywhere
-                            </button>
+                                </button>
                         </div>
 
                         <!-- Delete Account -->
                         <div class="bg-red-500/10 border border-red-500/20 rounded-xl p-6">
                             <h3 class="font-semibold text-red-400 mb-2 flex items-center">
                                 <span class="mr-2">⚠️</span>
-                                Delete Account
-                            </h3>
+                                    Delete Account
+                                </h3>
                             <p class="text-sm text-gray-300 mb-4">
                                 Permanently delete your account and all associated data. This action cannot be undone.
-                            </p>
+                                </p>
 
-                            {#if !showDeleteConfirm}
-                                <button
+                                {#if !showDeleteConfirm}
+                                    <button
                                     on:click={() => (showDeleteConfirm = true)}
                                     class="btn bg-gradient-to-r from-red-600 to-red-700 border-none hover:from-red-700 hover:to-red-800 text-white font-semibold transform hover:scale-105 transition-all duration-200"
-                                >
+                                    >
                                     🗑️ Delete Account
-                                </button>
-                            {:else}
+                                    </button>
+                                {:else}
                                 <div class="space-y-4">
                                     <div class="alert bg-red-500/20 border border-red-500/30 text-red-200">
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            class="stroke-current shrink-0 h-6 w-6"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                        >
-                                            <path
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                stroke-width="2"
-                                                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 15c-.77.833.192 2.5 1.732 2.5z"
-                                            />
-                                        </svg>
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                class="stroke-current shrink-0 h-6 w-6"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                            >
+                                                <path
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    stroke-width="2"
+                                                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 15c-.77.833.192 2.5 1.732 2.5z"
+                                                />
+                                            </svg>
                                         <span class="text-sm">This will permanently delete your account!</span>
-                                    </div>
-                                    <input
-                                        type="text"
-                                        bind:value={deleteConfirmText}
-                                        placeholder="Type DELETE to confirm"
+                                        </div>
+                                        <input
+                                            type="text"
+                                            bind:value={deleteConfirmText}
+                                            placeholder="Type DELETE to confirm"
                                         class="input input-bordered w-full bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:border-red-400"
-                                    />
+                                        />
                                     <div class="flex gap-3">
-                                        <button
-                                            on:click={deleteAccount}
+                                            <button
+                                                on:click={deleteAccount}
                                             disabled={deleteConfirmText !== "DELETE" || deleteLoading}
                                             class="btn flex-1 bg-gradient-to-r from-red-600 to-red-700 border-none hover:from-red-700 hover:to-red-800 text-white font-semibold disabled:opacity-50"
-                                        >
-                                            {#if deleteLoading}
+                                            >
+                                                {#if deleteLoading}
                                                 <span class="loading loading-spinner loading-sm"></span>
-                                            {:else}
+                                                {:else}
                                                 ✅ Confirm Delete
-                                            {/if}
-                                        </button>
-                                        <button
-                                            on:click={() => {
-                                                showDeleteConfirm = false;
-                                                deleteConfirmText = "";
-                                            }}
+                                                {/if}
+                                            </button>
+                                            <button
+                                                on:click={() => {
+                                                    showDeleteConfirm = false;
+                                                    deleteConfirmText = "";
+                                                }}
                                             class="btn btn-outline border-white/30 text-white hover:bg-white/10"
-                                        >
-                                            Cancel
-                                        </button>
+                                            >
+                                                Cancel
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
-                            {/if}
-                        </div>
+                                {/if}
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Back to Profile Link -->
-            <div class="mt-8 text-center">
+        <!-- Back to Profile Link -->
+        <div class="mt-8 text-center">
                 <a
                     href="/{session?.user?.email}"
                     class="inline-flex items-center space-x-2 text-blue-400 hover:text-blue-300 underline font-medium transform hover:scale-105 transition-all duration-200"

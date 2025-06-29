@@ -53,8 +53,8 @@
                 errorMessage = error.message;
             } else {
                 successMessage = 'Password updated successfully! Redirecting to login...';
-                setTimeout(() => {
-                    goto('/login');
+                setTimeout(async () => {
+                    await supabase.auth.signOut();
                 }, 2000);
             }
         } catch (err) {
