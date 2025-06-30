@@ -12,7 +12,9 @@
     }
 
     // Check if user is using a third-party provider
-    $: hasProvider = session?.user?.app_metadata?.provider && session?.user?.app_metadata?.provider !== 'email';
+    $: hasProvider =
+        session?.user?.app_metadata?.provider &&
+        session?.user?.app_metadata?.provider !== "email";
     $: providerName = session?.user?.app_metadata?.provider;
 
     // Form states
@@ -47,7 +49,8 @@
 
     async function updateEmail() {
         if (hasProvider) {
-            emailMessage = "Email changes are not allowed for accounts using third-party providers";
+            emailMessage =
+                "Email changes are not allowed for accounts using third-party providers";
             return;
         }
 
@@ -78,7 +81,8 @@
 
     async function updatePassword() {
         if (hasProvider) {
-            passwordMessage = "Password changes are not allowed for accounts using third-party providers";
+            passwordMessage =
+                "Password changes are not allowed for accounts using third-party providers";
             return;
         }
 
@@ -312,7 +316,11 @@
                                     />
                                 </svg>
                                 <span class="text-sm"
-                                    >Your email is managed by {providerName ? providerName.charAt(0).toUpperCase() + providerName.slice(1) : 'your provider'} and cannot be changed here.</span
+                                    >Your email is managed by {providerName
+                                        ? providerName.charAt(0).toUpperCase() +
+                                          providerName.slice(1)
+                                        : "your provider"} and cannot be changed
+                                    here.</span
                                 >
                             </div>
                         {/if}
@@ -327,7 +335,9 @@
                                 id="email-input"
                                 type="email"
                                 bind:value={newEmail}
-                                placeholder={hasProvider ? "Email managed by provider" : "Enter new email address"}
+                                placeholder={hasProvider
+                                    ? "Email managed by provider"
+                                    : "Enter new email address"}
                                 class="input input-bordered w-full bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:border-blue-400 focus:bg-white/20 transition-all duration-200"
                                 class:opacity-50={hasProvider}
                                 class:cursor-not-allowed={hasProvider}
@@ -342,8 +352,7 @@
                             disabled={!!(emailLoading || hasProvider)}
                         >
                             {#if emailLoading}
-                                <span
-                                    class="loading loading-spinner loading-sm"
+                                <span class="loading loading-spinner loading-sm"
                                 ></span>
                                 Updating Email...
                             {:else}
@@ -408,7 +417,10 @@
                                 />
                             </svg>
                             <span class="text-sm"
-                                >Your password is managed by {providerName ? providerName.charAt(0).toUpperCase() + providerName.slice(1) : 'your provider'} and cannot be changed here.</span
+                                >Your password is managed by {providerName
+                                    ? providerName.charAt(0).toUpperCase() +
+                                      providerName.slice(1)
+                                    : "your provider"} and cannot be changed here.</span
                             >
                         </div>
                     {/if}
@@ -427,7 +439,9 @@
                                 id="new-password"
                                 type="password"
                                 bind:value={newPassword}
-                                placeholder={hasProvider ? "Password managed by provider" : "Enter new password (min. 6 characters)"}
+                                placeholder={hasProvider
+                                    ? "Password managed by provider"
+                                    : "Enter new password (min. 6 characters)"}
                                 class="input input-bordered w-full bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:border-blue-400 focus:bg-white/20 transition-all duration-200"
                                 class:opacity-50={hasProvider}
                                 class:cursor-not-allowed={hasProvider}
@@ -447,7 +461,9 @@
                                 id="confirm-password"
                                 type="password"
                                 bind:value={confirmPassword}
-                                placeholder={hasProvider ? "Password managed by provider" : "Confirm new password"}
+                                placeholder={hasProvider
+                                    ? "Password managed by provider"
+                                    : "Confirm new password"}
                                 class="input input-bordered w-full bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:border-blue-400 focus:bg-white/20 transition-all duration-200"
                                 class:opacity-50={hasProvider}
                                 class:cursor-not-allowed={hasProvider}
