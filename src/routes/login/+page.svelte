@@ -237,7 +237,7 @@
                     <p class="text-sm text-gray-400">
                         Don't have an account?
                         <a
-                            href="/register"
+                            href="/registration"
                             class="text-blue-400 hover:text-blue-300 underline font-medium"
                             >Create one here</a
                         >

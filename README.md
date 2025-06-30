@@ -11,7 +11,7 @@
 ## ✨ Features
 
 ### 🎯 Core Features
-- **Personalized URLs**: Get your own Pokemon profile page at `yoursite.com/your.email@domain.com`
+- **Personalized URLs**: Get your own Pokemon profile page at `https://pokefolioph.vercel.app`
 - **Pokemon Selection**: Choose up to 6 favorite Pokemon from the original 151 (Gen 1)
 - **Custom Profiles**: Write your own description and showcase your Pokemon collection
 - **Real Pokemon Data**: Powered by the official [PokeAPI](https://pokeapi.co/)

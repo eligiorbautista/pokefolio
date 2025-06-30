@@ -53,7 +53,7 @@
                 {#if !session}
                     <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
                         <a 
-                            href="/register" 
+                            href="/registration" 
                             class="btn btn-lg bg-gradient-to-r from-green-600 to-blue-600 border-none hover:from-green-700 hover:to-blue-700 text-white transform hover:scale-105 transition-all duration-200 shadow-xl"
                         >
                             🚀 Create Account

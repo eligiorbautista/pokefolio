@@ -134,7 +134,7 @@
                     </p>
                     <p class="text-sm text-gray-400">
                         Don't have an account? 
-                        <a href="/register" class="text-green-400 hover:text-green-300 underline font-medium">Sign up</a>
+                        <a href="/registration" class="text-green-400 hover:text-green-300 underline font-medium">Sign up</a>
                     </p>
                 </div>
             </div>
