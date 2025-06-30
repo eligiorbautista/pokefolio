@@ -263,6 +263,7 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ## 🙏 Acknowledgments
 
+- **[coopercodes](https://github.com/coopercodes)** for the original inspiration - this project is a recreation of his work with additional features and enhanced security
 - [PokeAPI](https://pokeapi.co/) for providing the Pokemon data
 - [Supabase](https://supabase.com/) for the backend infrastructure
 - [SvelteKit](https://kit.svelte.dev/) for the amazing framework
