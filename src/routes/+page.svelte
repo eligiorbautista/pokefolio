@@ -1,3 +1,8 @@
+<svelte:head>
+    <title>PokeFolio - Create Your Pokemon Portfolio</title>
+    <meta name="description" content="Create your own personalized Pokemon profile page with a unique URL. Choose your favorite Pokemon and share them with the world!" />
+</svelte:head>
+
 <div class="min-h-screen bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900">
     <div class="container mx-auto px-4 py-16">
         <div class="max-w-4xl mx-auto text-center">
@@ -5,7 +10,7 @@
             <div class="relative mb-12">
                 <div class="absolute -inset-1 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-lg blur opacity-25"></div>
                 <h1 class="relative text-6xl md:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500 mb-6">
-                    🎮 PokePage
+                    🎮 PokeFolio
                 </h1>
             </div>
             

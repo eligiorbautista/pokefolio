@@ -46,7 +46,7 @@
                     href="/"
                     class="btn btn-ghost text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-300 hover:to-orange-400 transition-all duration-200"
                 >
-                    🎮 PokePage
+                    🎮 PokeFolio
                 </a>
                 {#if session !== null}
                     <a
@@ -232,7 +232,7 @@
                     }}
                     class="btn btn-ghost text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-300 hover:to-orange-400 transition-all duration-200"
                 >
-                    🎮 PokePage
+                    🎮 PokeFolio
                 </button>
             </div>
             <!-- Spacer -->

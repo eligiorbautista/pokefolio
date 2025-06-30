@@ -1,3 +1,8 @@
+<svelte:head>
+    <title>Signing In - PokeFolio</title>
+    <meta name="description" content="Completing your PokeFolio authentication. Please wait while we sign you in." />
+</svelte:head>
+
 <script lang="ts">
     export let data;
     import { goto } from '$app/navigation';

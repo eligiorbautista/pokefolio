@@ -8,6 +8,7 @@
     let { supabase, session } = data;
     $: ({ supabase, session } = data);
     $: email = $page.params.email;
+    $: username = email.split('@')[0];
 
     let pokemonList: any = [];
     let pokemonData: any = [];
@@ -138,13 +139,18 @@
 
 </script>
 
+<svelte:head>
+    <title>PokeFolio - Pokemon Portfolio</title>
+    <meta name="description" content="Check out {username}'s Pokemon collection and favorite Pokemon on their personalized PokeFolio page." />
+</svelte:head>
+
 <div class="min-h-screen bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900">
     <div class="container mx-auto px-4 py-8">
         <!-- Header Section -->
         <div class="text-center mb-12">
             <div class="relative inline-block">
                 <h1 class="text-5xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500 mb-4">
-                    {email.split('@')[0]}'s PokePage
+                    {username}'s PokeFolio
                 </h1>
                 <div class="absolute -inset-1 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-lg blur opacity-25"></div>
             </div>

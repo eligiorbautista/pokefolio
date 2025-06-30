@@ -1,3 +1,8 @@
+<svelte:head>
+    <title>Login - PokeFolio</title>
+    <meta name="description" content="Sign in to your PokeFolio account and manage your Pokemon portfolio." />
+</svelte:head>
+
 <script lang="ts">
     import { goto } from "$app/navigation";
     import { onMount } from "svelte";

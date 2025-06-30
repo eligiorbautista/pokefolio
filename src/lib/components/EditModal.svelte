@@ -46,7 +46,7 @@
 <dialog class="modal" class:modal-open={isOpen}>
     <div class="modal-box w-[95vw] sm:w-11/12 max-w-4xl max-h-[95vh] bg-slate-800 border border-white/20 p-3 sm:p-6 mx-2 sm:mx-4">
         <div class="flex justify-between items-start mb-3 sm:mb-6">
-            <h2 class="text-lg sm:text-2xl lg:text-3xl font-bold text-white leading-tight pr-2">✨ Edit Your PokePage</h2>
+            <h2 class="text-lg sm:text-2xl lg:text-3xl font-bold text-white leading-tight pr-2">✨ Edit Your PokeFolio</h2>
             <button class="btn btn-sm btn-circle btn-ghost text-white flex-shrink-0" on:click={closeModal}>✕</button>
         </div>
         

@@ -1,3 +1,8 @@
+<svelte:head>
+    <title>Join PokeFolio - Create Account</title>
+    <meta name="description" content="Create your PokeFolio account and start building your Pokemon portfolio today!" />
+</svelte:head>
+
 <script lang="ts">
     export let data;
     import { goto } from '$app/navigation';
@@ -97,7 +102,7 @@
             <div class="text-center mb-8">
                 <div class="relative inline-block mb-4">
                     <h1 class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500">
-                        🎮 Join PokePage
+                        🎮 Join PokeFolio
                     </h1>
                     <div class="absolute -inset-1 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-lg blur opacity-25"></div>
                 </div>

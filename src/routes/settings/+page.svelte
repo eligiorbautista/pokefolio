@@ -1,3 +1,8 @@
+<svelte:head>
+    <title>Settings - PokeFolio</title>
+    <meta name="description" content="Manage your PokeFolio account settings, update your profile, and security preferences." />
+</svelte:head>
+
 <script lang="ts">
     export let data;
     import { goto } from "$app/navigation";
@@ -628,7 +633,7 @@
                     class="inline-flex items-center space-x-2 text-blue-400 hover:text-blue-300 underline font-medium transform hover:scale-105 transition-all duration-200"
                 >
                     <span>←</span>
-                    <span>Back to My PokePage</span>
+                    <span>Back to My PokeFolio</span>
                 </a>
             </div>
         </div>

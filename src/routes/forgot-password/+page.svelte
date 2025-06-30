@@ -1,3 +1,8 @@
+<svelte:head>
+    <title>Forgot Password - PokeFolio</title>
+    <meta name="description" content="Reset your PokeFolio password. Enter your email to receive a password reset link." />
+</svelte:head>
+
 <script lang="ts">
     export let data;
     import { goto } from '$app/navigation';
