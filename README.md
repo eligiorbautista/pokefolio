@@ -11,7 +11,7 @@
 ## ✨ Features
 
 ### 🎯 Core Features
-- **Personalized URLs**: Get your own Pokemon profile page at `https://pokefolioph.vercel.app`
+- **Personalized URLs**: Get your own Pokemon profile page at `https://pokefolioph.vercel.app/registration`
 - **Pokemon Selection**: Choose up to 6 favorite Pokemon from the original 151 (Gen 1)
 - **Custom Profiles**: Write your own description and showcase your Pokemon collection
 - **Real Pokemon Data**: Powered by the official [PokeAPI](https://pokeapi.co/)
@@ -254,6 +254,12 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## 📄 License
 
 This project is open source and available under the [MIT License](LICENSE).
+
+## 👨‍💻 Author
+
+**Eligio Bautista**  
+🌐 Portfolio: [https://eligiobautista.dev](https://eligiobautista.dev)  
+⚡ Building amazing web experiences with modern technologies
 
 ## 🙏 Acknowledgments
 
