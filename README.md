@@ -26,6 +26,8 @@
 ### 📱 User Experience
 - **Responsive Design** - Works perfectly on mobile, tablet, and desktop
 - **Modern UI** with beautiful gradients and animations
+- **Pokemon-themed 404 Page** - Custom error page with Psyduck animations
+- **Smart Route Validation** - Proper email validation for profile URLs
 - **Real-time Updates** with instant feedback
 - **Toast Notifications** for user actions
 - **Loading States** for better UX
@@ -113,30 +115,37 @@ poke-page/
 │   │   └── index.ts                  # Library exports
 │   ├── routes/
 │   │   ├── [email]/
-│   │   │   └── +page.svelte          # User profile pages
+│   │   │   ├── +page.svelte          # User profile pages
+│   │   │   └── +page.ts              # Email validation & 404 handling
 │   │   ├── auth/
 │   │   │   └── callback/
 │   │   │       └── +page.svelte      # OAuth callback
-│   │   ├── login/
-│   │   │   └── +page.svelte          # Login page
-│   │   ├── register/
-│   │   │   └── +page.svelte          # Registration page
-│   │   ├── settings/
-│   │   │   └── +page.svelte          # Account settings
 │   │   ├── forgot-password/
 │   │   │   └── +page.svelte          # Password reset request
+│   │   ├── login/
+│   │   │   └── +page.svelte          # Login page
+│   │   ├── my/                       # User's own profile redirect
+│   │   ├── registration/
+│   │   │   └── +page.svelte          # Registration page
 │   │   ├── reset-password/
 │   │   │   └── +page.svelte          # Password reset form
+│   │   ├── settings/
+│   │   │   └── +page.svelte          # Account settings
+│   │   ├── +error.svelte             # 404 & error pages (Pokemon-themed)
 │   │   ├── +layout.svelte            # Main layout with navigation
-│   │   ├── +layout.ts                # Layout data loading
+│   │   ├── +layout.ts                # Layout data loading & Supabase setup
 │   │   └── +page.svelte              # Home page
-│   ├── app.css                       # Global styles
+│   ├── app.css                       # Global styles (Tailwind imports)
 │   ├── app.html                      # HTML template
 │   └── app.d.ts                      # Type definitions
 ├── static/
 │   ├── favicon.png                   # Site favicon
-│   └── pokeball.png                  # Pokeball icon
+│   └── pokeball.png                  # Pokeball icon for navigation
+├── commands.txt                      # Development commands reference
+├── LICENSE                           # Project license
 ├── package.json                      # Dependencies and scripts
+├── package-lock.json                 # Locked dependency versions
+├── postcss.config.js                 # PostCSS configuration
 ├── svelte.config.js                  # Svelte configuration
 ├── tailwind.config.ts                # Tailwind CSS configuration
 ├── tsconfig.json                     # TypeScript configuration
