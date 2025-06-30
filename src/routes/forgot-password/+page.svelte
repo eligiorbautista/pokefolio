@@ -6,6 +6,7 @@
 <script lang="ts">
     export let data;
     import { goto } from '$app/navigation';
+    import { toast } from 'svelte-sonner';
 
     let { supabase, session } = data
     $: ({ supabase, session } = data)
@@ -23,6 +24,7 @@
     async function handleResetPassword() {
         if (!email) {
             errorMessage = 'Please enter your email address';
+            toast.error(errorMessage);
             return;
         }
 
@@ -37,12 +39,15 @@
 
             if (error) {
                 errorMessage = error.message;
+                toast.error(errorMessage);
             } else {
                 successMessage = 'Password reset email sent! Check your inbox for further instructions.';
+                toast.success(successMessage);
                 email = '';
             }
         } catch (err) {
             errorMessage = 'An unexpected error occurred';
+            toast.error(errorMessage);
         } finally {
             loading = false;
         }

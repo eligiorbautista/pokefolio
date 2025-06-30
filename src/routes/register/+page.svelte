@@ -6,6 +6,7 @@
 <script lang="ts">
     export let data;
     import { goto } from '$app/navigation';
+    import { toast } from 'svelte-sonner';
 
     let { supabase, session } = data
     $: ({ supabase, session } = data)
@@ -26,16 +27,19 @@
     async function handleRegister() {
         if (!email || !password || !confirmPassword) {
             errorMessage = 'Please fill in all fields';
+            toast.error(errorMessage);
             return;
         }
 
         if (password !== confirmPassword) {
             errorMessage = 'Passwords do not match';
+            toast.error(errorMessage);
             return;
         }
 
         if (password.length < 6) {
             errorMessage = 'Password must be at least 6 characters long';
+            toast.error(errorMessage);
             return;
         }
 
@@ -51,8 +55,10 @@
 
             if (error) {
                 errorMessage = error.message;
+                toast.error(errorMessage);
             } else {
                 successMessage = 'Registration successful! Please check your email for verification.';
+                toast.success(successMessage);
                 // Clear form
                 email = '';
                 password = '';
@@ -60,6 +66,7 @@
             }
         } catch (err) {
             errorMessage = 'An unexpected error occurred';
+            toast.error(errorMessage);
         } finally {
             loading = false;
         }
@@ -80,11 +87,15 @@
             if (error) {
                 errorMessage = error.message;
                 googleLoading = false;
+                toast.error(errorMessage);
+            } else {
+                toast.success("Redirecting to Google...");
             }
             // Note: If successful, user will be redirected to Google, so we don't set googleLoading to false here
         } catch (err) {
             errorMessage = 'An unexpected error occurred with Google sign-up';
             googleLoading = false;
+            toast.error(errorMessage);
         }
     }
 

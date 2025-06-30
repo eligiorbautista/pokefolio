@@ -8,6 +8,7 @@
     import { goto } from '$app/navigation';
     import { onMount } from 'svelte';
     import { page } from '$app/stores';
+    import { toast } from 'svelte-sonner';
 
     let { supabase, session } = data
     $: ({ supabase, session } = data)
@@ -26,22 +27,26 @@
             isValidSession = true;
         } else {
             errorMessage = 'Invalid or expired reset link. Please request a new password reset.';
+            toast.error(errorMessage);
         }
     });
 
     async function handleUpdatePassword() {
         if (!password || !confirmPassword) {
             errorMessage = 'Please fill in all fields';
+            toast.error(errorMessage);
             return;
         }
 
         if (password !== confirmPassword) {
             errorMessage = 'Passwords do not match';
+            toast.error(errorMessage);
             return;
         }
 
         if (password.length < 6) {
             errorMessage = 'Password must be at least 6 characters long';
+            toast.error(errorMessage);
             return;
         }
 
@@ -56,14 +61,17 @@
 
             if (error) {
                 errorMessage = error.message;
+                toast.error(errorMessage);
             } else {
                 successMessage = 'Password updated successfully! Redirecting to login...';
+                toast.success(successMessage);
                 setTimeout(async () => {
                     await supabase.auth.signOut();
                 }, 2000);
             }
         } catch (err) {
             errorMessage = 'An unexpected error occurred';
+            toast.error(errorMessage);
         } finally {
             loading = false;
         }

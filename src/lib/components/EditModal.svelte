@@ -5,6 +5,7 @@
     export let profile: any;
     export let pokemonList: any[] = [];
     export let isSaving = false;
+    import { toast } from 'svelte-sonner';
 
     const dispatch = createEventDispatcher();
 
@@ -17,13 +18,14 @@
 
     function saveChanges() {
         dispatch('save', { profile });
+        toast.success("Changes saved!");
     }
 
     function togglePokemon(newPokemonId: number) {
         let pokemonIDs: number[] = profile.pokemon_ids;
 
-        if (pokemonIDs.length >= 3 && !pokemonIDs.includes(newPokemonId)) {
-            alert("You can only have 3 Pokemons!");
+        if (pokemonIDs.length >= 6 && !pokemonIDs.includes(newPokemonId)) {
+            toast.warning("You can only have 6 Pokemons!");
             return;
         }
 
@@ -67,8 +69,8 @@
             <!-- Pokemon Selection -->
             <div class="mb-3 sm:mb-6">
                 <div class="label py-1 sm:py-2 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 sm:gap-0">
-                    <span class="label-text text-white text-sm sm:text-lg font-semibold">🎯 Choose Your Pokemon (Max 3)</span>
-                    <span class="label-text-alt text-gray-400 text-xs sm:text-sm">{profile.pokemon_ids.length}/3 selected</span>
+                    <span class="label-text text-white text-sm sm:text-lg font-semibold">🎯 Choose Your Pokemon (Max 6)</span>
+                    <span class="label-text-alt text-gray-400 text-xs sm:text-sm">{profile.pokemon_ids.length}/6 selected</span>
                 </div>
                 
                 <!-- Search Input -->
