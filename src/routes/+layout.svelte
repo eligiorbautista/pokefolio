@@ -241,10 +241,8 @@
     </nav>
 {/if}
 
-<div class="pt-19">
-    <div class="mt-10">
-        <slot />
-    </div>
+<div class="pt-20 bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900">
+    <slot />
 </div>
 
 <style>

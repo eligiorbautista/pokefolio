@@ -3,6 +3,8 @@
     export let data;
     import { page } from "$app/stores";
     import { getPokemonList, getPokemon } from "$lib/pokemonAPI";
+    import EditModal from "$lib/components/EditModal.svelte";
+    
     let { supabase, session } = data;
     $: ({ supabase, session } = data);
     $: email = $page.params.email;
@@ -15,7 +17,6 @@
         pokemon_ids: [1, 2, 3],
     };
     let isModalOpen = false;
-    let searchInput = "";
     let isLoading = true;
     let isSaving = false;
 
@@ -101,21 +102,13 @@
         isModalOpen = false;
     }
 
-    async function togglePokemon(newPokemonId: number) {
-        let pokemonIDs: number[] = profile.pokemon_ids;
+    function handleModalSave(event: CustomEvent) {
+        profile = event.detail.profile;
+        savePageEdits();
+    }
 
-        if (pokemonIDs.length >= 3 && !pokemonIDs.includes(newPokemonId)) {
-            alert("You can only have 3 Pokemons!");
-            return;
-        }
-
-        if (pokemonIDs.includes(newPokemonId)) {
-            pokemonIDs = pokemonIDs.filter((id: number) => id !== newPokemonId);
-            profile.pokemon_ids = pokemonIDs;
-        } else {
-            pokemonIDs.push(newPokemonId);
-        }
-        profile.pokemon_ids = [...pokemonIDs];
+    function handleModalClose() {
+        isModalOpen = false;
     }
 
     function getTypeColor(type: string): string {
@@ -142,10 +135,7 @@
         return typeColors[type] || 'bg-gray-400';
     }
 
-    // Filter Pokemon list based on search
-    $: filteredPokemonList = pokemonList.filter((pokemon: any) => 
-        pokemon.name.toLowerCase().includes(searchInput.toLowerCase())
-    );
+
 </script>
 
 <div class="min-h-screen bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900">
@@ -235,109 +225,22 @@
             <!-- Edit Button -->
             {#if email === session?.user?.email}
                 <div class="text-center">
-                <button
+                    <button
                         class="btn btn-primary btn-lg bg-gradient-to-r from-blue-600 to-purple-600 border-none hover:from-blue-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-200 shadow-xl"
-                        onclick={() => (isModalOpen = true)}
+                        on:click={() => (isModalOpen = true)}
                     >
                         ✨ Edit Page
                     </button>
                 </div>
 
-                <!-- Enhanced Modal -->
-                <dialog class="modal" class:modal-open={isModalOpen}>
-                    <div class="modal-box max-w-4xl bg-slate-800 border border-white/20">
-                        <div class="flex justify-between items-center mb-6">
-                            <h2 class="text-3xl font-bold text-white">✨ Edit Your PokePage</h2>
-                            <button class="btn btn-sm btn-circle btn-ghost text-white" onclick={() => (isModalOpen = false)}>✕</button>
-                        </div>
-                        
-                        <!-- Description Section -->
-                        <div class="mb-8">
-                            <label for="profile-description" class="label">
-                                <span class="label-text text-white text-lg font-semibold">📝 Profile Description</span>
-                            </label>
-                        <textarea
-                            id="profile-description"
-                            bind:value={profile.description}
-                                class="textarea textarea-bordered w-full h-32 bg-slate-700 text-white border-slate-600 focus:border-blue-500"
-                                placeholder="Tell everyone about yourself and your favorite Pokemon..."
-                        ></textarea>
-                        </div>
-
-                        <!-- Pokemon Selection -->
-                        <div class="mb-6">
-                            <label for="pokemon-search" class="label">
-                                <span class="label-text text-white text-lg font-semibold">🎯 Choose Your Pokemon (Max 3)</span>
-                                <span class="label-text-alt text-gray-400">{profile.pokemon_ids.length}/3 selected</span>
-                            </label>
-                            
-                            <!-- Search Input -->
-                            <div class="relative mb-4">
-                                <input
-                                    id="pokemon-search"
-                                    type="text"
-                                    class="input input-bordered w-full bg-slate-700 text-white border-slate-600 focus:border-blue-500 pl-10"
-                                    placeholder="🔍 Search for Pokemon..."
-                                    bind:value={searchInput}
-                                />
-                                <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">🔍</span>
-                            </div>
-
-                            <!-- Pokemon Grid -->
-                            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 max-h-80 overflow-y-auto bg-slate-700/50 rounded-lg p-4">
-                                {#each filteredPokemonList as pokemon, index}
-                                <button
-                                        class="pokemon-selector {profile.pokemon_ids.includes(index + 1) ? 'selected' : ''}"
-                                    onclick={() => togglePokemon(index + 1)}
-                                >
-                                        <div class="text-center p-3 rounded-lg transition-all duration-200 hover:bg-slate-600 {profile.pokemon_ids.includes(index + 1) ? 'bg-blue-600 ring-2 ring-blue-400' : 'bg-slate-700'}">
-                                            <h3 class="text-white text-sm font-medium capitalize truncate">
-                                            {pokemon.name}
-                                            </h3>
-                                            {#if profile.pokemon_ids.includes(index + 1)}
-                                                <div class="text-xs text-blue-200 mt-1">✓ Selected</div>
-                                            {/if}
-                                        </div>
-                                    </button>
-                                {/each}
-                                
-                                {#if filteredPokemonList.length === 0}
-                                    <div class="col-span-full text-center py-8 text-gray-400">
-                                        No Pokemon found matching "{searchInput}"
-                                    </div>
-                                {/if}
-                            </div>
-                        </div>
-
-                        <!-- Modal Actions -->
-                        <div class="modal-action">
-                            <button
-                                class="btn btn-ghost text-white"
-                                onclick={() => (isModalOpen = false)}
-                            >
-                                Cancel
-                            </button>
-                        <button
-                                class="btn btn-primary bg-gradient-to-r from-green-600 to-blue-600 border-none hover:from-green-700 hover:to-blue-700"
-                                onclick={() => savePageEdits()}
-                                disabled={isSaving}
-                            >
-                                {#if isSaving}
-                                    <span class="loading loading-spinner loading-sm"></span>
-                                    Saving...
-                                {:else}
-                                    💾 Save Changes
-                                {/if}
-                            </button>
-                        </div>
-                    </div>
-                    <button 
-                        type="button"
-                        class="modal-backdrop bg-black/50" 
-                        aria-label="Close modal"
-                        onclick={() => (isModalOpen = false)}
-                    ></button>
-                </dialog>
+                <EditModal 
+                    bind:isOpen={isModalOpen}
+                    bind:profile={profile}
+                    {pokemonList}
+                    {isSaving}
+                    on:save={handleModalSave}
+                    on:close={handleModalClose}
+                />
             {/if}
         {/if}
     </div>
