@@ -9,6 +9,7 @@
     $: ({ supabase, session } = data);
     $: email = $page.params.email;
     $: username = email.split('@')[0];
+    $: currentUrl = $page.url.href;
 
     let pokemonList: any = [];
     let pokemonData: any = [];
@@ -20,12 +21,13 @@
     let isModalOpen = false;
     let isLoading = true;
     let isSaving = false;
+    let copySuccess = false;
 
     // profiles in Supabase which has columns for a description, pokemon_ids, and email
     // from this page, we can use the supabase object to th)en save to our database (grab data)
 
     async function refreshPokemonData() {
-        try {
+        try { 
             // Get all Pokemon data at once
             const promises = profile.pokemon_ids.map((id: number) => {
                 return getPokemon(id.toString());
@@ -136,7 +138,91 @@
         return typeColors[type] || 'bg-gray-400';
     }
 
+    async function copyToClipboard() {
+        try {
+            if (navigator.clipboard && window.isSecureContext) {
+                await navigator.clipboard.writeText(currentUrl);
+            } else {
+                const textArea = document.createElement('textarea');
+                textArea.value = currentUrl;
+                textArea.style.position = 'fixed';
+                textArea.style.left = '-999999px';
+                textArea.style.top = '-999999px';
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                document.execCommand('copy');
+                textArea.remove();
+            }
+            
+            copySuccess = true;
+            setTimeout(() => {
+                copySuccess = false;
+            }, 2000);
+        } catch (err) {
+            console.error('Failed to copy: ', err);
+            alert('Unable to copy link. Please copy manually: ' + currentUrl);
+        }
+    }
 
+    function shareToFacebook() {
+        if (currentUrl.includes('localhost') || currentUrl.includes('127.0.0.1')) {
+            alert('Facebook sharing requires a public URL. Please deploy your site first, then try sharing again.');
+            return;
+        }
+        
+        const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}&quote=${encodeURIComponent(`Check out ${username}'s Pokemon collection on PokeFolio!`)}`;
+        window.open(url, '_blank');
+    }
+
+    function shareToTwitter() {
+        const text = `Check out ${username}'s Pokemon collection on PokeFolio!`;
+        const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(currentUrl)}`;
+        window.open(tweetUrl, '_blank');
+    }
+
+    async function shareToInstagram() {
+        await copyToClipboard();
+        
+        const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        
+        if (isMobile) {
+            const shouldProceed = confirm(`Link copied to clipboard!\n\nInstagram doesn't support direct web sharing, but here's how to share:\n\n📱 Mobile:\n1. The Instagram app will open\n2. Create a new post or story\n3. Paste the link in your caption\n\nClick OK to open Instagram app.`);
+            
+            if (shouldProceed) {
+                try {
+                    window.location.href = 'instagram://app';
+                    setTimeout(() => {
+                        window.open('https://www.instagram.com/', '_blank');
+                    }, 1000);
+                } catch (e) {
+                    window.open('https://www.instagram.com/', '_blank');
+                }
+            }
+        } else {
+            alert(`Link copied to clipboard!\n\nInstagram doesn't support direct web sharing from desktop. Here's how to share:\n\n💻 Desktop:\n1. Go to Instagram.com\n2. Create a new post\n3. Paste the link in your caption\n\n📱 Or use your phone:\n1. Open Instagram app\n2. Create a story/post\n3. Paste the link`);
+            
+            window.open('https://www.instagram.com/', '_blank');
+        }
+    }
+
+    async function shareViaWebAPI() {
+        try {
+            if (navigator.share) {
+                await navigator.share({
+                    title: `${username}'s PokeFolio`,
+                    text: `Check out ${username}'s Pokemon collection!`,
+                    url: currentUrl,
+                });
+            } else {
+                await copyToClipboard();
+                alert('Link copied to clipboard! You can now share it anywhere.');
+            }
+        } catch (err) {
+            console.error('Error sharing:', err);
+            await copyToClipboard();
+        }
+    }
 </script>
 
 <svelte:head>
@@ -414,6 +500,67 @@
                         {/if}
                     </div>
                 {/if}
+            </div>
+
+            <!-- Share Section -->
+            <div class="mb-8 sm:mb-12">
+                <div class="text-center mb-6">
+                    <h3 class="text-xl sm:text-2xl font-bold text-white mb-4">Share This PokeFolio</h3>
+                    <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-4 sm:p-6 max-w-2xl mx-auto border border-white/20">
+                        <div class="flex flex-wrap justify-center gap-2 sm:gap-3 mb-4">
+                            <button
+                                class="btn btn-xs sm:btn-sm bg-slate-700/80 hover:bg-slate-600/80 border-slate-500 text-white transform hover:scale-105 transition-all duration-200 text-xs sm:text-sm"
+                                on:click={copyToClipboard}
+                                class:btn-success={copySuccess}
+                            >
+                                {#if copySuccess}
+                                    ✅ Copied!
+                                {:else}
+                                    🔗 Copy Link
+                                {/if}
+                            </button>
+
+                            <button
+                                class="btn btn-xs sm:btn-sm bg-blue-600 hover:bg-blue-700 border-blue-500 text-white transform hover:scale-105 transition-all duration-200 text-xs sm:text-sm"
+                                on:click={shareToFacebook}
+                                title="Share on Facebook"
+                            >
+                                📘 Facebook
+                            </button>
+
+                            <button
+                                class="btn btn-xs sm:btn-sm bg-sky-500 hover:bg-sky-600 border-sky-400 text-white transform hover:scale-105 transition-all duration-200 text-xs sm:text-sm"
+                                on:click={shareToTwitter}
+                                title="Share on Twitter"
+                            >
+                                🐦 Twitter
+                            </button>
+
+                            <button
+                                class="btn btn-xs sm:btn-sm bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 border-pink-400 text-white transform hover:scale-105 transition-all duration-200 text-xs sm:text-sm"
+                                on:click={shareToInstagram}
+                                title="Share on Instagram"
+                            >
+                                📸 Instagram
+                            </button>
+
+                            <button
+                                class="btn btn-xs sm:btn-sm bg-green-600 hover:bg-green-700 border-green-500 text-white transform hover:scale-105 transition-all duration-200 text-xs sm:text-sm"
+                                on:click={shareViaWebAPI}
+                                title="Share via device"
+                            >
+                                📱 Share
+                            </button>
+                        </div>
+                        <p class="text-sm text-gray-300 mb-2">Share {username}'s Pokemon collection with friends!</p>
+                        
+                        {#if currentUrl.includes('localhost') || currentUrl.includes('127.0.0.1')}
+                            <div class="text-xs text-yellow-300 bg-yellow-500/20 rounded-lg p-2 border border-yellow-500/30">
+                                ⚠️ <strong>Note:</strong> You're on localhost. Facebook requires a public URL to share properly. Deploy your site first for full social sharing functionality.
+                            </div>
+                        {/if}
+                    </div>
+                </div>
             </div>
 
             <!-- Edit Button -->
