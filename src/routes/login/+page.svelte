@@ -37,6 +37,7 @@
                 toast.error(errorMessage);
             } else {
                 toast.success("Redirecting to your PokeFolio...");
+                goto(`/${session?.user.email}`);
             }
         } catch (err) {
             errorMessage = "An unexpected error occurred";
@@ -66,7 +67,6 @@
                 toast.success("Redirecting to Google...");
             }
             // Note: If successful, user will be redirected to Google
-            
         } catch (err) {
             errorMessage = "An unexpected error occurred with Google sign-in";
             toast.error(errorMessage);
