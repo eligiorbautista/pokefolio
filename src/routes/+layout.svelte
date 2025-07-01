@@ -199,31 +199,33 @@
                         <span class="font-medium">Home</span>
                     </a>
 
-                    <a
-                        href="/{user_email}"
-                        class="flex items-center space-x-3 p-4 rounded-xl {isOnMyProfile
-                            ? 'bg-gradient-to-r from-purple-600/30 to-pink-600/30 hover:from-purple-600/40 hover:to-pink-600/40 border border-purple-400/30 hover:border-purple-400/50'
-                            : 'hover:bg-gradient-to-r hover:from-purple-600/20 hover:to-pink-600/20 border border-transparent hover:border-white/20'} transition-all duration-200 text-white"
-                        on:click={closeNav}
-                    >
-                        <img
-                            src="/pokeball.png"
-                            alt="Pokeball"
-                            class="w-5 h-5"
-                        />
-                        <span class="font-medium">My PokeFolio</span>
-                    </a>
+                    {#if session}
+                        <a
+                            href="/{user_email}"
+                            class="flex items-center space-x-3 p-4 rounded-xl {isOnMyProfile
+                                ? 'bg-gradient-to-r from-purple-600/30 to-pink-600/30 hover:from-purple-600/40 hover:to-pink-600/40 border border-purple-400/30 hover:border-purple-400/50'
+                                : 'hover:bg-gradient-to-r hover:from-purple-600/20 hover:to-pink-600/20 border border-transparent hover:border-white/20'} transition-all duration-200 text-white"
+                            on:click={closeNav}
+                        >
+                            <img
+                                src="/pokeball.png"
+                                alt="Pokeball"
+                                class="w-5 h-5"
+                            />
+                            <span class="font-medium">My PokeFolio</span>
+                        </a>
 
-                    <a
-                        href="/settings"
-                        class="flex items-center space-x-3 p-4 rounded-xl {isOnSettings
-                            ? 'bg-gradient-to-r from-purple-600/30 to-pink-600/30 hover:from-purple-600/40 hover:to-pink-600/40 border border-purple-400/30 hover:border-purple-400/50'
-                            : 'hover:bg-gradient-to-r hover:from-purple-600/20 hover:to-pink-600/20 border border-transparent hover:border-white/20'} transition-all duration-200 text-white"
-                        on:click={closeNav}
-                    >
-                        <span class="text-xl">⚙️</span>
-                        <span class="font-medium">Settings</span>
-                    </a>
+                        <a
+                            href="/settings"
+                            class="flex items-center space-x-3 p-4 rounded-xl {isOnSettings
+                                ? 'bg-gradient-to-r from-purple-600/30 to-pink-600/30 hover:from-purple-600/40 hover:to-pink-600/40 border border-purple-400/30 hover:border-purple-400/50'
+                                : 'hover:bg-gradient-to-r hover:from-purple-600/20 hover:to-pink-600/20 border border-transparent hover:border-white/20'} transition-all duration-200 text-white"
+                            on:click={closeNav}
+                        >
+                            <span class="text-xl">⚙️</span>
+                            <span class="font-medium">Settings</span>
+                        </a>
+                    {/if}
 
                     {#if session == null}
                         {#if !isInLogInPage}
