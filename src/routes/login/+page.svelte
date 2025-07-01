@@ -37,7 +37,7 @@
                 toast.error(errorMessage);
             } else {
                 toast.success("Redirecting to your PokeFolio...");
-                await goto(`/${session?.user?.email}`);
+                await goto(`/${email}`);
             }
         } catch (err) {
             errorMessage = "An unexpected error occurred";
